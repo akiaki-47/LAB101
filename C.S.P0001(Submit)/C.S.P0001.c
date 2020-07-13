@@ -18,15 +18,20 @@ void reverse(char s[]){
 	int i;
 	token = strtok(s," \t");
 	
-	while(token != NULL){
-		strcpy(word[count++], token);
-		token = strtok(NULL, " \t");
+	while(token !=  NULL){
+		if(s == ' '){
+			strcpy(word[count++], token);
+			token = strtok(NULL, " \t");
+		}
 	}
-	strcpy(s,"");
+	output(token);
+	strcpy(s, "");
+	
 	for(i=--count; i>=0; i--){
 		strcat(s, word[i]);
-		strcat(s," ");
+		strcat(s, "_");
 	}
+	//output(s);
 }
 
 int main(){

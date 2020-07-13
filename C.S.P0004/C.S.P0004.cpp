@@ -1,53 +1,69 @@
 #include <stdio.h>
 #include <string.h>
-
 void input(char a[]){
 	printf("Please enter string: ");
 	gets(a);
 }
 
-void dele(char a[], int &n, int position){
-	for(int i=position; i<n; i++){
-		a[position]=a[position+1];
+void findMostChar(char temp[], int count[]){
+	int max = count[0];
+	for(int i=1; i < 52; i++){
+		if(count[i]> max){
+			max = count[i];
+		}
 	}
-	a[n-1]='\0';
-}
-
-void outputText(char a[], int len){
-	for(int i=0; i<len-1; i++){
-		printf("%c\t",a[i]);
+	for(int i=1; i < 52; i++){
+		if(count[i] == max){
+			printf("  %c  ", temp[i]);
+		}
 	}
-	printf("%d\n",len);
-}
-void outputNumber(char a[], int b[], int len){
 	printf("\n");
-	for(int i=0; i<len-1; i++){
-		printf("%d\t",b[i]);
+	for(int i=1; i < 52; i++){
+		if(count[i] == max){
+			printf("  %d  ", count[i]);
+		}
 	}
-	printf("%d\n",len);
+}
+void outputText(char temp[], int count[]){
+	for(int i=0; i < 52; i++){
+		if(count[i]>0){
+			printf("  %c  ", temp[i]);
+		}
+	}
+	printf("\n");
 }
 
-void count(char a[], int b[], int &len){
-	int n=0;
-	for(int i=0; i<len; i++){
-		if((int)a[i]==32)	continue;
-		b[n]=1;
-		for(int j=i+1; j<len; j++){
-			if((int)a[i]==(int)a[j] || (int)a[i]==(int)a[j]+65){
-				b[n]++;
-				dele(a,len,j);
+void outputNumber(int count[]){
+	for(int i=0; i < 52; i++){
+		if(count[i]>0){
+			printf("  %d  ", count[i]);
+		}
+	}
+	printf("\n");
+}
+
+void find(char a[], char temp[] ,int b[]){
+	int len = strlen(a);
+	for(int i=0; i < len; i++){
+		if((int)a[i] >= 65 && (int)a[i] <= 90 || (int)a[i] >= 97 && (int)a[i] <= 122){
+			for(int j=0; j<52; j++){
+				if(a[i]== temp[j]){
+					b[j] += 1;
+				}
 			}
 		}
-		n++;
 	}
 }
 
 int main(){
 	char a[100];
-	int len,b[100];
+	char temp[52] = {'a','b','c','d','e','f','g','h','i','j','k', 'l','m', 'n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N', 'O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+	int len,count[52] = {0};
 	input(a);
-	len=strlen(a);
-	count(a,b,len);
-	outputText(a,len);
-	outputNumber(a,b,len);
+	printf("Times of appearance for each character: \n");
+	find(a, temp, count);
+	outputText(temp,count);
+	outputNumber(count);
+	printf("Characters that appears the most: \n");
+	findMostChar(temp, count);
 }

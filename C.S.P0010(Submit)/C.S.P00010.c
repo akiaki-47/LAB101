@@ -1,9 +1,12 @@
-#include<stdio.h>
+ #include<stdio.h>
 #include<stdlib.h>
 #include<String.h>
 void input(int *n, int a[]){ 
+	do{
 	printf("Please enter size of array: ");
 	scanf("%d", n);
+} while (n > 0);
+	
 	int i;
 	for(i=0; i < *n; i++){
 		printf("Enter element[%d]: ", i);
